@@ -16,8 +16,21 @@ function asciiToHex(ascii) {
     }
     return hex;
 }
-  const urlParams = new URLSearchParams(window.location.search);
-  const r = urlParams.get('r');
-  var g = asciiToHex("date");
-  window.location = "https://scratch.mit.edu/projects/" + r + "/?SV=" + g;
+const urlParams = new URLSearchParams(window.location.search);
+const r = urlParams.get('r');
+
+// Get current date components
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are 0-indexed
+const day = String(today.getDate()).padStart(2, '0');
+const hour = String(today.getHours()).padStart(2, '0');
+
+// Concatenate them into a single string (e.g., "2025-05-21-15")
+const dateStr = year + month + day + hour;
+
+// Convert to hex (assuming asciiToHex is a function you have)
+var g = asciiToHex(dateStr);
+
+window.location = "https://scratch.mit.edu/projects/" + r + "/?SV=" + g;
 </script>
