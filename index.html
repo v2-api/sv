@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if 'r' exists
     if (!r) {
-        console.error('Missing "r" parameter in the URL.');
+        alert('Missing "r" parameter in the URL.');
         return; // Prevent further execution if 'r' is missing
     }
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Log the URL to check its correctness
     const redirectUrl = `https://scratch.mit.edu/projects/${r}/?SV=${g}`;
-    console.log('Redirecting to: ', redirectUrl);
+    alert('Redirecting to: ', redirectUrl);
 
     // Redirect
     window.location = redirectUrl;
