@@ -1,5 +1,5 @@
 <script>
- /**
+/**
  * Converts an ASCII string to a hexadecimal string.
  * @param {string} ascii - The ASCII string (e.g., "Hello").
  * @returns {string} - The corresponding hexadecimal string (e.g., "48656c6c6f").
@@ -16,21 +16,35 @@ function asciiToHex(ascii) {
     }
     return hex;
 }
-const urlParams = new URLSearchParams(window.location.search);
-const r = urlParams.get('r');
 
-// Get current date components
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth() + 1; // Months are 0-indexed, so no need for padding
-const day = today.getDate(); // No padding for single-digit days
-const hour = today.getHours(); // No padding for single-digit hours
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const r = urlParams.get('r');
 
-// Concatenate them into a single string (e.g., "2025-5-21-15")
-const dateStr = year + month + day + hour;
+    // Check if 'r' exists
+    if (!r) {
+        console.error('Missing "r" parameter in the URL.');
+        return; // Prevent further execution if 'r' is missing
+    }
 
-// Convert to hex (assuming asciiToHex is a function you have)
-var g = asciiToHex(dateStr);
+    // Get current date components
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1; // Months are 0-indexed, so no need for padding
+    const day = today.getDate(); // No padding for single-digit days
+    const hour = today.getHours(); // No padding for single-digit hours
 
-window.location = "https://scratch.mit.edu/projects/" + r + "/?SV=" + g;
+    // Concatenate them into a single string (e.g., "2025-5-21-15")
+    const dateStr = year + month + day + hour;
+
+    // Convert to hex (assuming asciiToHex is a function you have)
+    var g = asciiToHex(dateStr);
+
+    // Log the URL to check its correctness
+    const redirectUrl = `https://scratch.mit.edu/projects/${r}/?SV=${g}`;
+    console.log('Redirecting to: ', redirectUrl);
+
+    // Redirect
+    window.location = redirectUrl;
+});
 </script>
