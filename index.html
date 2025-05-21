@@ -1,33 +1,23 @@
 <script>
-  /**
- * Converts a hexadecimal string to ASCII text.
- * @param {string} hex - The hexadecimal string (e.g., "48656c6c6f").
- * @returns {string} - The corresponding ASCII string.
+ /**
+ * Converts an ASCII string to a hexadecimal string.
+ * @param {string} ascii - The ASCII string (e.g., "Hello").
+ * @returns {string} - The corresponding hexadecimal string (e.g., "48656c6c6f").
  */
-function hexToAscii(hex) {
-    if (typeof hex !== 'string') {
+function asciiToHex(ascii) {
+    if (typeof ascii !== 'string') {
         throw new TypeError("Input must be a string.");
     }
 
-    hex = hex.trim();
-
-    if (hex.length % 2 !== 0) {
-        throw new Error("Hex string must have an even number of characters.");
+    let hex = '';
+    for (let i = 0; i < ascii.length; i++) {
+        const hexChar = ascii.charCodeAt(i).toString(16);
+        hex += hexChar.padStart(2, '0'); // Ensures each byte is two characters long
     }
-
-    let ascii = '';
-    for (let i = 0; i < hex.length; i += 2) {
-        const hexPair = hex.substr(i, 2);
-        const charCode = parseInt(hexPair, 16);
-        if (isNaN(charCode)) {
-            throw new Error(`Invalid hex character: ${hexPair}`);
-        }
-        ascii += String.fromCharCode(charCode);
-    }
-    return ascii;
-};
+    return hex;
+}
   const urlParams = new URLSearchParams(window.location.search);
-  const red = urlParams.get('r');
-  var gg = hexToAscii(red);
-  window.location = "https://scratch.mit.edu/projects/" + gg;
+  const r = urlParams.get('r');
+  var g = asciiToHex("date");
+  window.location = "https://scratch.mit.edu/projects/" + r + "/?SV=" + g;
 </script>
